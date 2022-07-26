@@ -22,17 +22,15 @@
 
   https://github.com/rojberr/plants-waterer
 */
-
 #include <Arduino.h>
 #include <SoftwareSerial.h>
 
 #define DEBUG true
 
-int MOTOR_IN = 5;
+int MOTOR_OUT = 5;
+int SENSOR_IN = 0;
 
-int Pin1 = A0;
-
-float sensor1Value = 0;
+float sensorValue = 0;
 
 
 // the setup function runs once when you press reset or power the board
@@ -41,24 +39,29 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
 
   Serial.begin(9600);
-
-  pinMode(MOTOR_IN, OUTPUT);
-
-  pinMode(Pin1, INPUT);
-
+  pinMode(MOTOR_OUT, OUTPUT);
+  pinMode(SENSOR_IN, INPUT);
   delay(500);
 }
 
 // the loop function runs over and over again forever
 void loop() {
   
-  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(1000);                       // wait for a second
-  digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
-  digitalWrite(MOTOR_IN, HIGH);
-  delay(5000);                       // wait for a second
+//  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED and PUMP on (HIGH is the voltage level)
+//  digitalWrite(MOTOR_OUT, HIGH);
+//  
+//  delay(2000);                       // wait for 5 seconds
+//
+//  digitalWrite(LED_BUILTIN, LOW);    // turn the LED and PUMP off by making the voltage LOW
+//  digitalWrite(MOTOR_OUT, HIGH);
+  delay(500);                      // wait for 5 seconds
 
-  digitalWrite(MOTOR_IN, HIGH);
-  delay(5000); // 2 seconds
- 
+  Serial.println("Plant - Moisture Level:");
+  sensorValue = analogRead(SENSOR_IN);
+  Serial.println(sensorValue);
+    if (sensorValue > 425) {
+    digitalWrite(MOTOR_OUT, LOW);
+  } else {
+    digitalWrite(MOTOR_OUT, HIGH);
+  }
 }
