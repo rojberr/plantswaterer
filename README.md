@@ -2,6 +2,8 @@
 
 ## This is my simple Arduino project.
 
+## You don't need to call your neighbour to water your plants while you are on your vacation anymore! 🌱
+
 ## This project presents a solution to the problem of rarely-periodic monitoring of the sensor condition for more than a few weeks in home conditions.
 
 ![Photo by Karolina Grabowska: https://www.pexels.com/photo/person-in-brown-shorts-watering-the-plants-4750270/](img/README-pic.jpg)
