@@ -60,4 +60,14 @@ TODO:
 
 - How much humidity is normal for house plants?
 
-- 
+- Make market sizing top down / bottom up
+
+- do a feature table x - competition y - features to compare
+
+- find direct / indirect / potential / substitute competition
+
+- build a case
+  - program display
+  - program button
+  - case
+  - clock - check only 2 times per day
