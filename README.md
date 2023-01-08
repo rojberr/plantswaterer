@@ -54,3 +54,10 @@ Various types of sensors are available on the market, due to the scale (potted p
 ## Author
 
 rojberr@outlook.com
+
+
+TODO:
+
+- How much humidity is normal for house plants?
+
+- 
