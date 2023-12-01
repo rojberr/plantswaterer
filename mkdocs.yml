@@ -1,0 +1,83 @@
+site_name: plantswaterer
+site_author: Rojberr
+site_url: http://rojberr.github.io/plantswaterer/
+site_description: plantswaterer
+
+repo_url: https://github.com/rojberr/plantswaterer
+edit_uri: edit/master/docs/
+
+theme:
+  name: material
+  language: en
+
+  features:
+    - navigation.top
+    - navigation.tabs
+    - navigation.path
+    - navigation.footer
+    - navigation.expand
+    - navigation.sections
+    - toc.integrate
+    - search.share
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.action.edit
+    - content.code.annotation
+    - content.code.copy
+
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+      primary: teal
+      accent: purple
+    - scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+      primary: teal
+      accent: lime
+
+plugins:
+  - social
+  - search
+
+extra:
+  consent:
+    title: Cookie consent
+    description: This website uses cookies to ensure you get the best experience on our website.
+    actions:
+      - accept
+      - manage
+  generator: false
+
+  social:
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/rojberr
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/rojberr_
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/jakub-drzymala/
+
+copyright: |
+  Copyright &copy; 2023 - 2024 <a href="https://github.com/rojberr"  target="_blank" rel="noopener">Rojberr 👷</a> | 
+  <a href="#__consent">Change cookie settings</a>
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - admonition
+  - pymdownx.arithmatex:
+      generic: true
+  - footnotes
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.mark
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
