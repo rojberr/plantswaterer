@@ -84,5 +84,6 @@ markdown_extensions:
 
 nav:
   - Home: index.md
+  - Project chart: projectchart.md
   - Usage: usage.md
   - Parts & Assembly: parts&assembly.md
