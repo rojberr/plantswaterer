@@ -3,7 +3,9 @@
 ## This is my simple Arduino project.
 
 <p align="center">
-  [![Docu Pipeline Build Status](https://github.com/rojberr/plantswaterer/actions/workflows/page.yml/badge.svg)](https://github.com/rojberr/plantswaterer/actions)
+  <a href="https://github.com/rojberr/plantswaterer/actions">
+  <img src="https://github.com/rojberr/plantswaterer/actions/workflows/page.yml/badge.svg" alt="Docu Pipeline Build Status">
+  </a>
 </p>
 
 ## You don't need to call your neighbour to water your plants while you are on your vacation anymore! 🌱
