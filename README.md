@@ -1,5 +1,9 @@
 # plants-waterer
 
+<p align="center"><strong>
+  You'll find the documentation here -> <a href="rojberr.github.io/plantswaterer/"> rojberr.github.io/plantswaterer/
+  </a></strong>
+</p>
 ## This is my simple Arduino project.
 
 <p align="center">
