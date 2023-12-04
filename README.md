@@ -1,20 +1,26 @@
 # plants-waterer
 
-<p align="center"><strong>
-  You'll find the documentation here -> <a href="rojberr.github.io/plantswaterer/"> rojberr.github.io/plantswaterer/
-  </a></strong>
-</p>
-## This is my simple Arduino project.
-
 <p align="center">
   <a href="https://github.com/rojberr/plantswaterer/actions">
-  <img src="https://github.com/rojberr/plantswaterer/actions/workflows/page.yml/badge.svg" alt="Docu Pipeline Build Status">
-  </a>
+  <img src="https://github.com/rojberr/plantswaterer/actions/workflows/page.yml/badge.svg" alt="Docu Pipeline Build Status"></a>
+
+  <a href="https://github.com/rojberr/plantswaterer/graphs/contributors" alt="Contributors">
+  <img src="https://img.shields.io/github/contributors/rojberr/plantswaterer" /></a>
+
+  <a href="https://github.com/badges/rojberr/plantswaterer" alt="Activity">
+  <img src="https://img.shields.io/github/commit-activity/m/rojberr/plantswaterer" /></a>
 </p>
 
-## You don't need to call your neighbour to water your plants while you are on your vacation anymore! 🌱
+### This is my simple Arduino project. You'll find the documentation here:
 
-## This project presents a solution to the problem of rarely-periodic monitoring of the sensor condition for more than a few weeks in home conditions.
+<p align="center"><strong>
+  <a href="rojberr.github.io/plantswaterer/"> rojberr.github.io/plantswaterer/
+  </a></strong>
+</p>
+
+### You don't need to call your neighbour to water your plants while you are on your vacation anymore! 🌱
+
+### This project presents a solution to the problem of rarely-periodic monitoring of the sensor condition for more than a few weeks in home conditions.
 
 ![Photo by Karolina Grabowska: https://www.pexels.com/photo/person-in-brown-shorts-watering-the-plants-4750270/](img/README-pic.jpg)
 
