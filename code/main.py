@@ -25,29 +25,32 @@ import time
 
 DEBUG = True
 
-#MOTOR_OUT_PIN = 5
+MOTOR_OUT_PIN = 15
 SENSOR_IN_PIN = 26
 led_pin = Pin("LED", Pin.OUT)
 
-#motor_out = Pin(MOTOR_OUT_PIN, Pin.OUT)
+motor_out = Pin(MOTOR_OUT_PIN, Pin.OUT)
 sensor_in = ADC(SENSOR_IN_PIN)
+
 
 def setup():
     led_pin.value(1)
     time.sleep(2)
     led_pin.value(0)
     # initialize digital pin LED_BUILTIN as an output.
-    #motor_out.value(0)  # set motor output to LOW
+    # motor_out.value(0)  # set motor output to LOW
+
 
 def loop():
-    time.sleep(0.5)  # wait for 0.5 seconds
+    time.sleep(0.2)  # wait for 0.5 seconds
     print("Plant - Moisture Level:")
     sensor_value = sensor_in.read_u16()
     print(sensor_value)
-    # if sensor_value > 425:
-    #     motor_out.value(1)  # turn the motor on
-    # else:
-    #     motor_out.value(0)  # turn the motor off
+    if sensor_value > 50000:
+        motor_out.value(1)  # turn the motor on
+    else:
+        motor_out.value(0)  # turn the motor off
+
 
 while True:
     setup()
