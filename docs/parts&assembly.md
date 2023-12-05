@@ -15,6 +15,9 @@ a very stylish back pack (or a miniature jet pack, if you prefer). We've also go
 a space to mount your Pico on top) and some other boards that let you do interesting hackerly things like using multiple
 packs at once - click here to view them all!
 
+![Raspberry Pi Pico W, RP2040 + WLAN](assets/raspberry_pi_pico_w.jpg)
+https://www.raspberrypi.com/documentation/microcontrollers/?version=E0C9125B0D9B
+
 ### Pimoroni PIM543 Display
 
 Pico Display lets you turn a Pico into a compact user interface device for a bigger project, capable of giving

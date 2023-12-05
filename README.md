@@ -14,7 +14,7 @@
 ### This is my simple Arduino project. You'll find the documentation here:
 
 <p align="center"><strong>
-  <a href="rojberr.github.io/plantswaterer/"> rojberr.github.io/plantswaterer/
+  <a href="https://rojberr.github.io/plantswaterer/">rojberr.github.io/plantswaterer/
   </a></strong>
 </p>
 
@@ -22,7 +22,7 @@
 
 ### This project presents a solution to the problem of rarely-periodic monitoring of the sensor condition for more than a few weeks in home conditions.
 
-![Photo by Karolina Grabowska: https://www.pexels.com/photo/person-in-brown-shorts-watering-the-plants-4750270/](img/README-pic.jpg)
+![Photo by Karolina Grabowska: https://www.pexels.com/photo/person-in-brown-shorts-watering-the-plants-4750270/](docs/assets/README-pic.jpg)
 
 ## Abstract
 
@@ -34,17 +34,17 @@ manufactured device, but also the design process and justifies the choices made 
 
 ## Components
 
-![sensor2](img/sensor2.png)
+![sensor2](docs/assets/sensor2.png)
 
-![sensor1](img/sensor1.png)
+![sensor1](docs/assets/sensor1.png)
 
-![sensor3](img/sensor3.png)
+![sensor3](docs/assets/sensor3.png)
 
-![sensor4](img/sensor4.png)
+![sensor4](docs/assets/sensor4.png)
 
-![prototype](img/prototype.png)
+![prototype](docs/assets/prototype.png)
 
-![capacity](img/capacity.png)
+![capacity](docs/assets/capacity.png)
 
 ## Design process
 
