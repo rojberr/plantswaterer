@@ -4,6 +4,9 @@
 
 ### Raspberry Pi Pico W, RP2040 + WLAN
 
+Introduced by RAspberry Pi in January 2021, is the first Microcontroller in RAspberry Pi Family, powered by RP2040 MCU,
+with multiple PWM-capable I/O ports, I2C, SPI, ADC.
+
 - foto
 
 Raspberry Pi Pico is a flexible, low cost microcontroller development board from the folks at Raspberry Pi, based on
@@ -76,8 +79,15 @@ C/C++ and MicroPython libraries
 
 ![Schematic](assets/fritzing_schema_Steckplatine.png)
 
+
+![Bildschirmfoto 2023-12-05 um 21.36.48.png](..%2F..%2F..%2F..%2FDesktop%2FBildschirmfoto%202023-12-05%20um%2021.36.48.png)
+
 ### Code
 
 ```python
 test
 ```
+
+
+coord system
+![img.png](img.png)
