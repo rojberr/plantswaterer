@@ -1,29 +1,21 @@
-# Plants Waterer
-
-# Turns on the water pump for a specified period of time when the measured soil humidity gets too low.
-
-# This is an extremely popular DIY project that allows you to automatically water your plants according to the level of moisture in the soil.
-
-# Most plants need less frequent watering, which can be provided with the use of this code.
-# The measurement of soil moisture can be done with use of Capacitive Soil Moisture Sensor v1.2.
-# (It is advised to use this model over non-protected resistance models. Check out this video:
-# https://www.youtube.com/watch?v=udmJyncDvw0 )
-
-# If you want to know what pin the on-board LED is connected to on your Arduino
-# model, check the Technical Specs of your board at:
-# https://www.arduino.cc/en/Main/Products
-
-# modified 11 April 2022
-# by @author rojberr
-# @version 0.0.0
-
-# This example code is shared on Github.
-# https://github.com/rojberr/plants-waterer
-
 import time
 from machine import Pin, ADC
 from pimoroni import Button, RGBLED
 from picographics import PicoGraphics, DISPLAY_PICO_DISPLAY, PEN_P4
+
+# SQLite
+conn = sqlite3.connect('watering.db')
+cursor = conn.cursor()
+
+# create table
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS watering_log (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        watering_date TEXT,
+        watering_time TEXT
+    )
+''')
+conn.commit()
 
 ## I/O setup & variables
 DEBUG = True
@@ -38,6 +30,11 @@ display = PicoGraphics(display=DISPLAY_PICO_DISPLAY, pen_type=PEN_P4, rotate=0)
 display.set_backlight(0.5)
 display.set_font("bitmap8")
 WIDTH, HEIGHT = display.get_bounds()
+X_max = 134
+Y_max = 239
+X_Bar_Width = 40     #set a width for the bars
+X_Bar_Start = round(((X_max / 2) - (X_Bar_Width / 2))) #Find start point so bar is centered
+
 
 led = RGBLED(6, 7, 8)
 button_a = Button(12)
@@ -51,6 +48,19 @@ CYAN = display.create_pen(0, 255, 255)
 MAGENTA = display.create_pen(255, 0, 255)
 YELLOW = display.create_pen(255, 255, 0)
 GREEN = display.create_pen(0, 255, 0)
+
+#define bar graph segment colors:
+b_color = []                                       #List to hold the colors
+b_color.append(display.create_pen(255, 255, 255))  #White
+b_color.append(display.create_pen(210, 210, 210))  #Gray
+b_color.append(display.create_pen(000, 255, 255))  #Cyan
+b_color.append(display.create_pen(000, 200, 200))  #Cyan
+b_color.append(display.create_pen(100, 100, 255))  #Blue
+b_color.append(display.create_pen(000, 000, 255))  #Blue
+b_color.append(display.create_pen(155, 155, 000))  #Yellow
+b_color.append(display.create_pen(255, 255, 000))  #Yellow
+b_color.append(display.create_pen(255, 125, 000))  #Orange
+b_color.append(display.create_pen(255, 000, 000))  #Red
 
 
 def clear():  # func we call to clear the screen
@@ -78,6 +88,49 @@ def blink_welcome():
     led.set_rgb(0, 0, 255)  # turn the LED off
     time.sleep(.1)
 
+def show_moisture_level(sensor_value):
+    B_height = 20                         #Bar height setting for each segment
+    Y_POS = Y_max -B_height                 #Start at bottom, move upwards
+    for index, value in enumerate(range(50000, 150000, 10000)):                  #Step through all 10 segments
+        if (value <= sensor_value):                    #If this segment 'b' is within level range
+            display.set_pen(b_color[index])     #Set it's color for this position
+        else:                               #
+            display.set_pen(BLACK)          #Set color to erase a previous color
+                                            #Draw the rectangle to create the bar
+        display.rectangle(X_Bar_Start,Y_POS,X_Bar_Width,B_height)  
+        display.update()                    #Update display to reflect new data
+        Y_POS -= B_height                   #Decrement position for next bar
+
+def log_watering():
+    watering_time = time.localtime()
+    date_value = f"{watering_time.tm_year}-{watering_time.tm_mon:02d}-{watering_time.tm_mday:02d}"
+    time_value = f"{watering_time.tm_hour:02d}:{watering_time.tm_min:02d}:{watering_time.tm_sec:02d}"
+    cursor.execute('INSERT INTO watering_log (watering_date, watering_time) VALUES (?, ?)', (date_value, time_value))
+    conn.commit()
+
+def display_last_watering():
+    cursor.execute('SELECT * FROM watering_log ORDER BY watering_date, watering_time DESC LIMIT 1')
+    last_watering = cursor.fetchone()
+    if last_watering:
+        last_watering_str = f"{last_watering[1]} - {last_watering[2]}"
+    else:
+        last_watering_str = "No records"
+    picodisplay.set_pen(255, 255, 255)
+    picodisplay.clear()
+    picodisplay.text("Last watering:", 10, 10, 200, 3)
+    picodisplay.text(last_watering_str, 10, 40, 200, 3)
+    picodisplay.update()
+    time.sleep(1)
+    picodisplay.clear()
+
+def display_current_moisture(sensor_value):
+    picodisplay.set_pen(255, 255, 255)
+    picodisplay.clear()
+    picodisplay.text("Current Moisture:", 10, 10, 200, 3)
+    picodisplay.text(f"{sensor_value}%", 10, 40, 200, 3)
+    picodisplay.update()
+    time.sleep(1)
+    picodisplay.clear()
 
 def loop():
     boundary_humidity = 50000
@@ -86,33 +139,17 @@ def loop():
         print("Plant - Moisture Level:")
         sensor_value = sensor_in.read_u16()
         print(sensor_value)
+        show_moisture_level(sensor_value) 
+        log_watering()
         if sensor_value > boundary_humidity:
             motor_out.high()  # turn the motor on
         else:
             motor_out.high()  # turn the motor off
 
         if button_a.read():  # if a button press is detected then...
-            clear()  # clear to black
-            display.set_pen(WHITE)  # change the pen colour
-            if boundary_humidity < 90000:
-                boundary_humidity += 1000
-                display.text("Boundary humidity increased", 10, 10, 240, 4)  # display some text on the screen
-            else:
-                display.text("Boundary humidity already max", 10, 10, 240, 4)
-            display.update()  # update the display
-            time.sleep(0.5)  # pause for a sec
-            clear()  # clear to black again
+            display_last_watering()     #show when was last watering
         elif button_b.read():
-            clear()
-            display.set_pen(CYAN)
-            if boundary_humidity > 0:
-                boundary_humidity -= 1000
-                display.text("Boundary humidity decreased", 10, 10, 240, 4)  # display some text on the screen
-            else:
-                display.text("Boundary humidity already min", 10, 10, 240, 4)
-            display.update()
-            time.sleep(.5)
-            clear()
+            display_current_moisture(sensor_value)  #show current moisture
         elif button_x.read():
             clear()
             display.set_pen(MAGENTA)
