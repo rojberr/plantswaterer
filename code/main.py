@@ -111,22 +111,26 @@ def loop():
             display.set_pen(WHITE)  # change the pen colour
             if boundary_humidity < 90000:
                 boundary_humidity += 1000
-                display.text("Boundary humidity increased", 10, 10, 240, 4)  # display some text on the screen
+                display.text("Boundary humidity increased to", 10, 10, 240, 3)
+                display.set_pen(MAGENTA)
+                display.text(f"{boundary_humidity}", 10, 100, 240, 3)# display some text on the screen
             else:
-                display.text("Boundary humidity already max", 10, 10, 240, 4)
+                display.text("Boundary humidity already max", 10, 10, 240, 3)
             display.update()  # update the display
-            time.sleep(0.5)  # pause for a sec
+            time.sleep(2)  # pause for a sec
             clear()  # clear to black again
         elif button_b.read():
             clear()
-            display.set_pen(CYAN)
+            display.set_pen(WHITE)
             if boundary_humidity > 0:
                 boundary_humidity -= 1000
-                display.text("Boundary humidity decreased", 10, 10, 240, 4)  # display some text on the screen
+                display.text(f"Boundary humidity decreased to", 10, 10, 240, 3)  # display some text on the screen
+                display.set_pen(MAGENTA)
+                display.text(f"{boundary_humidity}", 10, 100, 240, 3)
             else:
-                display.text("Boundary humidity already min", 10, 10, 240, 4)
+                display.text("Boundary humidity already min", 10, 10, 240, 3)
             display.update()
-            time.sleep(.5)
+            time.sleep(2)
             clear()
         elif button_x.read():
             X_Bar_Start = 0
@@ -135,7 +139,7 @@ def loop():
             B_height = 30  # Adjust the height of the rectangles as needed
             clear()
             sensor_value2 = 90000
-            for index, value in enumerate(range(40000, 140000, 10000)):
+            for index, value in enumerate(range(boundary_humidity-1000, 140000, 10000)):
                 
                 if value <= sensor_value2:
                     display.set_pen(b_color[index])
@@ -160,20 +164,24 @@ def loop():
             clear()
         elif button_y.read():
             clear()
-            display.set_pen(GREEN)
+            display.set_pen(WHITE)
+            if last_watering == '' :
+                last_watering = time.localtime()
             date_value = f"{last_watering[0]}-{last_watering[1]:02d}-{last_watering[2]:02d}"
             time_value = f"{last_watering[3]:02d} : {last_watering[4]:02d} : {last_watering[5]:02d}"
-            display.text('Last watering:',10,10,240,3)
-            display.text(date_value, 10, 50, 240, 4)
-            display.text(time_value, 10, 90, 240, 4)  # Adjust the vertical position as needed
+            #print(f"Last watering: \n {date_value} \n {time_value}")
+            display.text(f"Last watering: \n {date_value} \n {time_value}",8,9,240,3)
+              # Adjust the vertical position as needed
             display.update()
             time.sleep(3)
             clear()
         else:
-            display.set_pen(GREEN)
-            display.text(f"Boundary humidity = {boundary_humidity}\n"
-                         "+ Press A to increase\n"
-                         "- Press B to decrease", 7, 7, 240, 2)
+            display.set_pen(WHITE)
+            display.text(f"Boundary humidity={boundary_humidity}\n"
+                         "A - increase boundary humidity\n"
+                         "B - decrease boundary humidity\n"
+                         "X - humidity level\n"
+                         "Y - last watering", 7, 7, 240, 2)
             display.update()
         time.sleep(0.1)  # this number is how frequently the Pico checks for button presses
             
@@ -181,3 +189,4 @@ def loop():
 if __name__ == '__main__':
     setup()
     loop()
+
