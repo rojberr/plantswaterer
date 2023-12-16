@@ -93,7 +93,7 @@ def blink_welcome():
 
 
 def loop():
-    boundary_humidity = 50000
+    boundary_humidity = 40000
     last_watering = ''
     while True:
         time.sleep(0.2)  # wait for 0.5 seconds
@@ -101,6 +101,7 @@ def loop():
         sensor_value = sensor_in.read_u16()
         print(sensor_value)
         if sensor_value > boundary_humidity:
+            print("true")
             motor_out.high() # turn the motor on
             last_watering = time.localtime()
         else:
@@ -141,7 +142,7 @@ def loop():
             sensor_value2 = 90000
             for index, value in enumerate(range(boundary_humidity-1000, 140000, 10000)):
                 
-                if value <= sensor_value2:
+                if value <= sensor_value:
                     display.set_pen(b_color[index])
                     # Calculate the coordinates and dimensions for the rectangle
                     x = X_Bar_Start + index * X_Bar_Width
@@ -151,7 +152,7 @@ def loop():
 
                     display.rectangle(x, y, width, height)
                     display.update()
-            percentage_text = f"{int((sensor_value2 - 40000) / 1000)}%"
+            percentage_text = f"{int((sensor_value - 40000) / 1000)}%"
             # Calculate the coordinates for centering the text
             text_width = len(percentage_text) * 8  # Assuming bitmap8 font width
             text_height = 8  # Assuming bitmap8 font height
@@ -189,4 +190,5 @@ def loop():
 if __name__ == '__main__':
     setup()
     loop()
+
 
