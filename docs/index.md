@@ -7,7 +7,7 @@ Welcome to the world of hassle-free plant care with the SmartPlant Waterer! We'r
 Whether you're a seasoned plant parent or just starting your botanical journey, this documentation is designed to make your experience seamless and enjoyable. Let's dive in and discover how the SmartPlant Waterer can transform the way you care for your plants.
 
 <div style="text-align: center;">
-  <iframe width="560" height="315" src="https://youtu.be/YHwZM_WCD-o" frameborder="0" allowfullscreen></iframe>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/YHwZM_WCD-o" frameborder="0" allowfullscreen></iframe>
 </div>
 
 ## What's Inside?
