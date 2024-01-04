@@ -135,27 +135,24 @@ def loop():
             clear()
         elif button_x.read():
             X_Bar_Start = 0
-            Y_POS = HEIGHT - 30  # Adjust the starting Y position as needed
+            Y_POS = HEIGHT - 30  # starting Y position 
             X_Bar_Width = WIDTH // 10  # Assuming 10 segments
-            B_height = 30  # Adjust the height of the rectangles as needed
+            B_height = 30  # height of the rectangles
             clear()
-            sensor_value2 = 90000
-            for index, value in enumerate(range(boundary_humidity-1000, 140000, 10000)):
-                
-                if value <= sensor_value:
+            for index, value in enumerate(range(boundary_humidity+6000,17000,int((20000-50000)/10))):
+                if value >= sensor_value:   #paint scale
                     display.set_pen(b_color[index])
                     # Calculate the coordinates and dimensions for the rectangle
                     x = X_Bar_Start + index * X_Bar_Width
                     y = Y_POS
                     width = X_Bar_Width
                     height = B_height
-
                     display.rectangle(x, y, width, height)
                     display.update()
-            percentage_text = f"{int((sensor_value - 40000) / 1000)}%"
+            percentage_text = f"{int((boundary_humidity+6000 - sensor_value)/(boundary_humidity-17000)*100)}%" #calculate percentage
             # Calculate the coordinates for centering the text
-            text_width = len(percentage_text) * 8  # Assuming bitmap8 font width
-            text_height = 8  # Assuming bitmap8 font height
+            text_width = len(percentage_text) * 8  
+            text_height = 8  
 
             text_x = (WIDTH - text_width) // 2 - 20
             text_y = (HEIGHT - text_height) // 2 - 30
@@ -172,7 +169,6 @@ def loop():
             time_value = f"{last_watering[3]:02d} : {last_watering[4]:02d} : {last_watering[5]:02d}"
             #print(f"Last watering: \n {date_value} \n {time_value}")
             display.text(f"Last watering: \n {date_value} \n {time_value}",8,9,240,3)
-              # Adjust the vertical position as needed
             display.update()
             time.sleep(3)
             clear()
