@@ -4,10 +4,10 @@
 
 ### Raspberry Pi Pico W, RP2040 + WLAN
 
-Introduced by RAspberry Pi in January 2021, is the first Microcontroller in RAspberry Pi Family, powered by RP2040 MCU,
+Introduced by Raspberry Pi in January 2021, is the first Microcontroller in RAspberry Pi Family, powered by RP2040 MCU,
 with multiple PWM-capable I/O ports, I2C, SPI, ADC.
 
-- foto
+![img_1.png](assets/img_1.png)
 
 Raspberry Pi Pico is a flexible, low cost microcontroller development board from the folks at Raspberry Pi, based on
 their very own chip - the RP2040. It's easily programmable over USB with C/C++ or MicroPython, and ideal for using in
@@ -18,8 +18,7 @@ a very stylish back pack (or a miniature jet pack, if you prefer). We've also go
 a space to mount your Pico on top) and some other boards that let you do interesting hackerly things like using multiple
 packs at once - click here to view them all!
 
-![Raspberry Pi Pico W, RP2040 + WLAN](assets/raspberry_pi_pico_w.jpg)
-https://www.raspberrypi.com/documentation/microcontrollers/?version=E0C9125B0D9B
+[Raspberry Pi Pico W, RP2040 + WLAN Documentation](https://www.raspberrypi.com/documentation/microcontrollers/?version=E0C9125B0D9B)
 
 ### Pimoroni PIM543 Display
 
@@ -27,6 +26,8 @@ Pico Display lets you turn a Pico into a compact user interface device for a big
 instructions, displaying readouts and even incorporating elaborate nested menus. If you'd rather use your Pico as a
 standalone device you could make a little rotating slideshow of images, display beautiful graphs from sensor data or
 build your own Tamagotchi or matchbox sized text adventure game.
+
+![img.png](img.png)
 
 Pico Display Pack communicates with the LCD display via SPI on pins LCD_CS, LCD_DC, LCD_SCLK, and LCD_MOSI. We also PWM
 the BL_EN pin (with gamma correction) for full, linear, backlight control. LCD_RESET is tied to the RUN pin on Pico so
@@ -59,35 +60,48 @@ C/C++ and MicroPython libraries
 
 ### Capacitive Soil Moisture Sensor v1.2
 
-- foto
+The "Capacitive Soil Moisture Sensor v1.2" is designed for measuring the moisture content in soil, using capacitive
+sensing rather than resistive sensing which makes it less prone to corrosion. It operates on 3.3V to 5V, providing an
+analog output proportional to the moisture level, and is compatible with microcontroller platforms like Arduino.
+
+![img_2.png](img_2.png)
 
 ### 5V 1 Channel Relay Module
 
-- foto
+The "5V 1 Channel Relay Module" is an electronic switch that allows a low-power signal to control a higher power
+circuit. Operating at 5V, it features a single channel, ideal for interfacing with microcontrollers like Arduino for
+various automation tasks. The module includes an onboard LED indicator for relay operation and provides both normally
+open and normally closed output options for versatile application in control systems.
+
+![img_1.png](img_1.png)
 
 ### 18650 Battery & Battery Holder
 
-- foto
+A simple battery holder was used.
+
+![img_4.png](img_4.png)
 
 ### Water Pump
 
-- foto
+Simple water pump was used.
+
+![img_3.png](img_3.png)
 
 ## Assembly
+
+To assembly follow the schematics below.
 
 ### Schematic
 
 ![Schematic](assets/fritzing_schema_Steckplatine.png)
-
 
 ![Bildschirmfoto 2023-12-05 um 21.36.48.png](..%2F..%2F..%2F..%2FDesktop%2FBildschirmfoto%202023-12-05%20um%2021.36.48.png)
 
 ### Code
 
 ```python
-test
+#the whole code can be found in GitHub repo
 ```
 
-
 coord system
-![img.png](img.png)
+![img.png](assets/img.png)

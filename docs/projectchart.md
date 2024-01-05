@@ -1,11 +1,11 @@
 # Plants waterer project chart
 
 This project is a time-limited endeavor to create a UNIQUE plants waterer
-product.
+product. It was created by a 2 person team.
 
 ## Project Description and Scope
 
-1. Initial requirements gathering:
+1. Initial requirements gathering
 2. Solution scoping and pricing
 3. Detailed solution design
 4. Solution implementation
