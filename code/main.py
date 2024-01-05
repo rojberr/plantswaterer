@@ -52,6 +52,19 @@ MAGENTA = display.create_pen(255, 0, 255)
 YELLOW = display.create_pen(255, 255, 0)
 GREEN = display.create_pen(0, 255, 0)
 
+b_color = []                                       #List to hold the colors
+b_color.append(display.create_pen(255, 255, 255))  #White
+b_color.append(display.create_pen(210, 210, 210))  #Gray
+b_color.append(display.create_pen(000, 255, 255))  #Cyan
+b_color.append(display.create_pen(000, 200, 200))  #Cyan
+b_color.append(display.create_pen(100, 100, 255))  #Blue
+b_color.append(display.create_pen(000, 000, 255))  #Blue
+b_color.append(display.create_pen(155, 155, 000))  #Yellow
+b_color.append(display.create_pen(255, 255, 000))  #Yellow
+b_color.append(display.create_pen(255, 125, 000))  #Orange
+b_color.append(display.create_pen(255, 000, 000))  #Red
+
+
 
 def clear():  # func we call to clear the screen
     led.set_rgb(0, 0, 0)  # turn the LED off
@@ -80,14 +93,17 @@ def blink_welcome():
 
 
 def loop():
-    boundary_humidity = 50000
+    boundary_humidity = 40000
+    last_watering = ''
     while True:
         time.sleep(0.2)  # wait for 0.5 seconds
         print("Plant - Moisture Level:")
         sensor_value = sensor_in.read_u16()
         print(sensor_value)
         if sensor_value > boundary_humidity:
-            motor_out.high()  # turn the motor on
+            print("true")
+            motor_out.high() # turn the motor on
+            last_watering = time.localtime()
         else:
             motor_out.high()  # turn the motor off
 
@@ -96,46 +112,79 @@ def loop():
             display.set_pen(WHITE)  # change the pen colour
             if boundary_humidity < 90000:
                 boundary_humidity += 1000
-                display.text("Boundary humidity increased", 10, 10, 240, 4)  # display some text on the screen
+                display.text("Boundary humidity increased to", 10, 10, 240, 3)
+                display.set_pen(MAGENTA)
+                display.text(f"{boundary_humidity}", 10, 100, 240, 3)# display some text on the screen
             else:
-                display.text("Boundary humidity already max", 10, 10, 240, 4)
+                display.text("Boundary humidity already max", 10, 10, 240, 3)
             display.update()  # update the display
-            time.sleep(0.5)  # pause for a sec
+            time.sleep(2)  # pause for a sec
             clear()  # clear to black again
         elif button_b.read():
             clear()
-            display.set_pen(CYAN)
+            display.set_pen(WHITE)
             if boundary_humidity > 0:
                 boundary_humidity -= 1000
-                display.text("Boundary humidity decreased", 10, 10, 240, 4)  # display some text on the screen
+                display.text(f"Boundary humidity decreased to", 10, 10, 240, 3)  # display some text on the screen
+                display.set_pen(MAGENTA)
+                display.text(f"{boundary_humidity}", 10, 100, 240, 3)
             else:
-                display.text("Boundary humidity already min", 10, 10, 240, 4)
+                display.text("Boundary humidity already min", 10, 10, 240, 3)
             display.update()
-            time.sleep(.5)
+            time.sleep(2)
             clear()
         elif button_x.read():
+            X_Bar_Start = 0
+            Y_POS = HEIGHT - 30  # starting Y position 
+            X_Bar_Width = WIDTH // 10  # Assuming 10 segments
+            B_height = 30  # height of the rectangles
             clear()
-            display.set_pen(MAGENTA)
-            display.text("Button X pressed", 10, 10, 240, 4)
+            for index, value in enumerate(range(boundary_humidity+6000,17000,int((20000-50000)/10))):
+                if value >= sensor_value:   #paint scale
+                    display.set_pen(b_color[index])
+                    # Calculate the coordinates and dimensions for the rectangle
+                    x = X_Bar_Start + index * X_Bar_Width
+                    y = Y_POS
+                    width = X_Bar_Width
+                    height = B_height
+                    display.rectangle(x, y, width, height)
+                    display.update()
+            percentage_text = f"{int((boundary_humidity+6000 - sensor_value)/(boundary_humidity-17000)*100)}%" #calculate percentage
+            # Calculate the coordinates for centering the text
+            text_width = len(percentage_text) * 8  
+            text_height = 8  
+
+            text_x = (WIDTH - text_width) // 2 - 20
+            text_y = (HEIGHT - text_height) // 2 - 30
+            display.text(percentage_text, text_x, text_y, 240, 6)
             display.update()
             time.sleep(1)
             clear()
         elif button_y.read():
             clear()
-            display.set_pen(YELLOW)
-            display.text("Button Y pressed", 10, 10, 240, 4)
+            display.set_pen(WHITE)
+            if last_watering == '' :
+                last_watering = time.localtime()
+            date_value = f"{last_watering[0]}-{last_watering[1]:02d}-{last_watering[2]:02d}"
+            time_value = f"{last_watering[3]:02d} : {last_watering[4]:02d} : {last_watering[5]:02d}"
+            #print(f"Last watering: \n {date_value} \n {time_value}")
+            display.text(f"Last watering: \n {date_value} \n {time_value}",8,9,240,3)
             display.update()
-            time.sleep(1)
+            time.sleep(3)
             clear()
         else:
-            display.set_pen(GREEN)
-            display.text(f"Boundary humidity = {boundary_humidity}\n"
-                         "+ Press A to increase\n"
-                         "- Press B to decrease", 7, 7, 240, 2)
+            display.set_pen(WHITE)
+            display.text(f"Boundary humidity={boundary_humidity}\n"
+                         "A - increase boundary humidity\n"
+                         "B - decrease boundary humidity\n"
+                         "X - humidity level\n"
+                         "Y - last watering", 7, 7, 240, 2)
             display.update()
         time.sleep(0.1)  # this number is how frequently the Pico checks for button presses
-
+            
 
 if __name__ == '__main__':
     setup()
     loop()
+
+
